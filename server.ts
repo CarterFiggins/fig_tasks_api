@@ -1,4 +1,5 @@
 import express from "express";
+import { db } from "./db";
 
 const app = express();
 const PORT = process.env.PORT || 3017;
@@ -25,37 +26,14 @@ app.post("/api/data", (req, res) => {
   res.json({ message: "Data received", yourData: data });
 });
 
-app.get("/api/tasks", (req, res) => {
-  // Example tasks data
-  const tasks = [
-    {
-      id: 1,
-      title: "Clean the bathroom",
-      notes: null,
-      recurring: 20,
-      due_date: null,
-      position: 1,
-      archived_at: null,
-    },
-    {
-      id: 2,
-      title: "Buy groceries",
-      notes: "Milk, eggs, bread",
-      recurring: null,
-      due_date: null,
-      position: 2,
-      archived_at: null,
-    },
-    {
-      id: 3,
-      title: "Water the plants",
-      notes: null,
-      recurring: 7,
-      due_date: null,
-      position: 3,
-      archived_at: null,
-    },
-  ];
+app.get("/api/tasks", async (req, res) => {
+  const tasks = await db`
+    SELECT id, title, notes, recurring, due_date, position, archived_at
+    FROM tasks
+    WHERE archived_at IS NULL
+      AND (due_date IS NULL OR due_date <= CURRENT_DATE)
+    ORDER BY position
+  `;
 
   res.json(tasks);
 });

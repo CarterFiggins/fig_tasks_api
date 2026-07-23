@@ -4,7 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "bun --watch server.ts"
+    "start": "bun --watch server.ts",
+    "migrate": "bun run migrate.ts",
+    "seed": "bun run seed.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
