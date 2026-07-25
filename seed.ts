@@ -4,9 +4,11 @@ const [account] = await db`
   INSERT INTO accounts (name) VALUES ('Personal') RETURNING id
 `;
 
+const passwordHash = await Bun.password.hash("password123");
+
 const [user] = await db`
   INSERT INTO users (name, email, password_hash, account_id)
-  VALUES ('Carter', 'carter@example.com', 'placeholder', ${account.id})
+  VALUES ('Carter', 'carter@example.com', ${passwordHash}, ${account.id})
   RETURNING id
 `;
 
