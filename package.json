@@ -6,7 +6,8 @@
   "scripts": {
     "start": "bun --watch server.ts",
     "migrate": "bun run migrate.ts",
-    "seed": "bun run seed.ts"
+    "seed": "bun run seed.ts",
+    "test": "bun test"
   },
   "devDependencies": {
     "@types/bun": "latest",
