@@ -1,6 +1,8 @@
 import express from "express";
+import { accountsRouter } from "./routes/accounts";
 import { authRouter } from "./routes/auth";
 import { tasksRouter } from "./routes/tasks";
+import { usersRouter } from "./routes/users";
 
 export const app = express();
 
@@ -23,3 +25,5 @@ app.get("/", (req, res) => {
 
 app.use("/api", authRouter);
 app.use("/api/tasks", tasksRouter);
+app.use("/api/accounts", accountsRouter);
+app.use("/api/users", usersRouter);
